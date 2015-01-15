@@ -15,7 +15,9 @@ file(
         src/*
 )
 
-add_executable( tp_avions ${source_files})
+add_executable( tp_avions ${source_files} main)
+add_executable( tp_avions_tests ${source_files} main_tests)
 
 INCLUDE_DIRECTORIES(${OPENSCENEGRAPH_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS} include)
-TARGET_LINK_LIBRARIES(tp_avions ${OPENSCENEGRAPH_LIBRARIES} ${GTEST_LIBRARIES} pthread)
+TARGET_LINK_LIBRARIES(tp_avions ${OPENSCENEGRAPH_LIBRARIES} )
+TARGET_LINK_LIBRARIES(tp_avions_tests ${OPENSCENEGRAPH_LIBRARIES} ${GTEST_LIBRARIES} pthread)

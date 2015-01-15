@@ -16,15 +16,15 @@ void AvionEnnemi::deplacement()
 
     x+=dx;
     if(x<0) x=TAILLE-1;
-    if(x==TAILLE) x=0;
+    if(x>=TAILLE) x=0;
 
     y+=dy;
     if(y<0) y=TAILLE-1;
-    if(y==TAILLE) y=0;
+    if(y>=TAILLE) y=0;
 
     z+=dz;
     if(z<0) z=TAILLE-1;
-    if(z==TAILLE) z=0;
+    if(z>=TAILLE) z=0;
 }
 
 void AvionEnnemi::tir()
