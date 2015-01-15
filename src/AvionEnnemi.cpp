@@ -13,15 +13,15 @@ AvionEnnemi::AvionEnnemi(int id, int x, int y, int z, int dx, int dy, int dz): A
 void AvionEnnemi::deplacement()
 {
     /* Le déplacement se fait simplement en additionnant la direction a la position : ici, les avions peuvent traverser les murs */
-    
+
     x+=dx;
     if(x<0) x=TAILLE-1;
     if(x==TAILLE) x=0;
-    
+
     y+=dy;
     if(y<0) y=TAILLE-1;
     if(y==TAILLE) y=0;
-    
+
     z+=dz;
     if(z<0) z=TAILLE-1;
     if(z==TAILLE) z=0;
@@ -41,7 +41,7 @@ void AvionEnnemi::tir()
                     if(a->getX()==j*dx+x && a->getY()==j*dy+y && a->getX()==j*dz+z)         // On regarde si l'avion ami est sur cette case
                     {
                         /* Dans ce cas, on tire et on change l'etat de la cible */
-                        this->pretATirer=false;  
+                        this->pretATirer=false;
                         Avion::avions[i]->setDetruit(true);
                     }
                 }
@@ -76,20 +76,17 @@ void AvionEnnemi::nouvelleDirection(){
     Vy = avions[iDistanceMin]->getY()+avions[iDistanceMin]->getDy()-y;
     Vz = avions[iDistanceMin]->getZ()+avions[iDistanceMin]->getDz()-z;
 
-    struct coupleDirection{  //structure permettant une sortie plus jolie pour le prochain vecteur
-        int composanteVecteur;
-        int *valeurDirectionActuelle;
-    };
     coupleDirection dirX, dirY, dirZ;
-    
+
     dirX.composanteVecteur = Vx;
     dirX.valeurDirectionActuelle = &dx;
     dirY.composanteVecteur = Vy;
     dirY.valeurDirectionActuelle = &dy;
     dirZ.composanteVecteur = Vz;
     dirZ.valeurDirectionActuelle = &dz;
-    
-    std::vector <coupleDirection> direction; // Ce tableau nous permet de classer les composantes du vecteur afin de prioritariser les ordres de déplacement
+
+    std::vector<coupleDirection> direction;
+    // Ce tableau nous permet de classer les composantes du vecteur afin de prioritariser les ordres de déplacement
 
     if ((abs(Vx)>= abs(Vy))&&(abs(Vx)>= abs(Vz)))
     {
@@ -119,7 +116,7 @@ void AvionEnnemi::nouvelleDirection(){
             direction.push_back(dirX);
         }
     }
-    else 
+    else
     {
         direction.push_back(dirZ);
         if(abs(Vx)>= abs(Vy))
@@ -133,11 +130,11 @@ void AvionEnnemi::nouvelleDirection(){
             direction.push_back(dirX);
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     if (direction[0].composanteVecteur>0)
     {
         switch(*(direction[0].valeurDirectionActuelle))
@@ -184,7 +181,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -196,7 +193,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                    break;   
+                    break;
                 }
             }
             else if (direction[1].composanteVecteur<0)
@@ -234,7 +231,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -246,10 +243,10 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        break;    
+                        break;
                 }
             }
-            else 
+            else
             {
                 switch(*(direction[1].valeurDirectionActuelle))
                 {
@@ -284,7 +281,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -296,7 +293,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        break;    
+                        break;
                 }
             }
             break;
@@ -348,7 +345,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -360,7 +357,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                    break;   
+                    break;
                 }
             }
             else if (direction[1].composanteVecteur<0)
@@ -398,7 +395,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -410,10 +407,10 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        break;    
+                        break;
                 }
             }
-            else 
+            else
             {
                 switch(*(direction[1].valeurDirectionActuelle))
                 {
@@ -448,7 +445,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -460,13 +457,13 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        break;    
+                        break;
                 }
             }
             break;
         }
     }
-    else 
+    else
     {
         switch(*(direction[0].valeurDirectionActuelle))
         {
@@ -512,7 +509,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -524,7 +521,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                    break;   
+                    break;
                 }
             }
             else if (direction[1].composanteVecteur<0)
@@ -562,7 +559,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -574,10 +571,10 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        break;    
+                        break;
                 }
             }
-            else 
+            else
             {
                 switch(*(direction[1].valeurDirectionActuelle))
                 {
@@ -612,7 +609,7 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        else 
+                        else
                         {
                             switch(*(direction[2].valeurDirectionActuelle))
                             {
@@ -624,11 +621,11 @@ void AvionEnnemi::nouvelleDirection(){
                                     break;
                             }
                         }
-                        break;    
+                        break;
                 }
             }
             break;
         }
     }
-    
+
 }

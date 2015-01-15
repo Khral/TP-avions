@@ -14,6 +14,5 @@ class AvionEnnemi : public Avion
         void tir();                     // Modifie bool detruit d'un avion cible
         void nouvelleDirection();       // Modifie la direction de l'avion : Statégie de l'adversaire, s'aligner avec l'avion ami le plus proche.
     };
-    
-    
+
 #endif

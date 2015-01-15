@@ -1,9 +1,17 @@
 #ifndef AVION_H
 #define AVION_H
 
-#ifndef __APPLE__
-#include <windows.h>
-#endif
+    #ifdef TARGET_OS_MAC
+      #error Cant be compiled yet
+    #endif
+
+    #ifdef __linux__
+
+    #endif
+
+    #ifdef _WIN32 || _WIN64
+        #include <windows.h>
+    #endif
 
 #include <vector>
 
@@ -29,53 +37,59 @@ const int TAILLE = 14;
 class Avion{
 protected:
     int id;
-    
+
 	int x;
 	int y;
 	int z;
-	
+
 	int dx; // valent 0, -1 , 1
 	int dy;
 	int dz;
-	
+
 	char symbole; // 'A':Ami 'E':Ennemi
-	
+
 	bool pretATirer;
 	bool detruit;
-		
+
 public:
 	static std::vector<Avion*> avions;
-    
+
     int getId();
     void setId(int id);
-    
+
 	int getX();
 	int getY();
 	int getZ();
 	void setX(int x);
 	void setY(int y);
 	void setZ(int z);
-	
+
 	int getDx();
 	int getDy();
 	int getDz();
 	void setDx(int dx);
 	void setDy(int dy);
 	void setDz(int dz);
-	
+
 	char getSymbole();
-	
+
 	bool getPretATirer();
 	void setPretATirer(bool a);
-	
+
 	bool getDetruit();
 	void setDetruit(bool a);
-	
+
     Avion(int id, char symbole, int x, int y, int z, int dx, int dy, int dz);
-	
+
     virtual void deplacement()=0;
 	virtual void tir()=0; //modifie l'avion cible
 	virtual void nouvelleDirection()=0;
+};
+
+
+struct coupleDirection{  //structure permettant une sortie plus jolie pour le prochain vecteur
+    int composanteVecteur;
+    int *valeurDirectionActuelle;
 };
 
 #endif
