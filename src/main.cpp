@@ -3,12 +3,13 @@
 #include "AvionEnnemi.h"
 #include "GeneralCallback.h"
 
+#include <gtest/gtest.h>
+
 using namespace std;
 
-int main()
+int main(int argc, char** argv) {
 
-{
-    // Initialisation avions (pas besoin des symboles, le symmbole est inclus dans le constructeur AvionAmi et Avion Ennemi)
+// Initialisation avions (pas besoin des symboles, le symmbole est inclus dans le constructeur AvionAmi et Avion Ennemi)
     Avion* avion1 = new AvionAmi(0,0,5,0,1,0,1);
     Avion* avion2 = new AvionAmi(1,0,8,0,1,0,1);
     Avion* avion3 = new AvionEnnemi(2,13,5,13,-1,0,-1);
@@ -87,6 +88,21 @@ int main()
 	osg::ref_ptr<osg::PositionAttitudeTransform> pat4 (new osg::PositionAttitudeTransform);
 	pat4->addChild(patTFigther.get());
 
+/* Play Zone */
+
+	osg::ref_ptr<osg::Geode> ZoneGeode (new osg::Geode);
+	osg::ref_ptr<osg::Box> myBox (new osg::Box(osg::Vec3(7.5,7.5,7.5),14));
+	osg::ref_ptr<osg::ShapeDrawable> ZoneDrawable (new osg::ShapeDrawable(myBox.get()));
+	osg::ref_ptr<osg::StateSet> ZoneStateSet (ZoneGeode->getOrCreateStateSet());
+
+	osg::PolygonMode * polygonMode = new osg::PolygonMode;
+	polygonMode->setMode( osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE );
+	ZoneStateSet->setAttributeAndModes( polygonMode,osg::StateAttribute::OVERRIDE | osg::StateAttribute::ON );
+
+	ZoneGeode->setStateSet(ZoneStateSet);
+
+	ZoneGeode->addDrawable(ZoneDrawable);
+
 
 /* SCENE GRAPH*/
 
@@ -95,6 +111,8 @@ int main()
 	root->addChild(pat2.get());
 	root->addChild(pat3.get());
 	root->addChild(pat4.get());
+
+	root->addChild(ZoneGeode.get());
 
 	// Set the scene data
 	viewer.setSceneData( root.get() );
@@ -112,6 +130,7 @@ int main()
 
 
 /* START VIEWER */
+
 	osg::ref_ptr<GeneralCallback> generalCallback = new GeneralCallback();
 	generalCallback->patAvions.push_back(pat1);
 	generalCallback->patAvions.push_back(pat2);
@@ -123,5 +142,11 @@ int main()
 	viewer.getCamera()->setClearColor(osg::Vec4(0.0f,0.0f,0.2f,0.0f));
 
 	cout << "*** Begin ***" << endl;
-	return (viewer.run());
+
+    viewer.run();
+
+    ::testing::InitGoogleTest(&argc, argv);
+
+
+    return RUN_ALL_TESTS();
 }
